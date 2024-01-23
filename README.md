@@ -1,4 +1,4 @@
-# solid-fef-cli (Solid FE Form CLI)
+# Solid FE Form CLI
 
 The Solid Front End Form CLI is meant to help creating forms on Vue/Angular frameworks from SHACL (Shapes Constraint Language) files.
 
@@ -16,7 +16,8 @@ npm install @solidlab/solid-fef-cli --save-dev
 npm i @solidlab/solid-fef-cli -D
 ```
 
-It could also be install globally using ```--global``` option. For example, in case you want to use it for multiple projects.
+It could also be install globally using ```--global``` option.
+For example, in case you want to use it for multiple projects.
 
 ```bash
 npm install @solidlab/solid-fef-cli --global
@@ -31,20 +32,36 @@ npm i @solidlab/solid-fef-cli -g
 sfef help
 ```
 
-### list shapes available
+### List shapes available
 
 ```bash
 sfef list-shapes
 ```
 
-### custom CSS styles
+### Custom CSS styles
 
 ```bash
 sfef set-custom-css
 ```
 
-### create form file and dependencies
+### Create form file and dependencies
 
 ```bash
 sfef create --framework --shape --css
+```
+
+## Remove
+
+To uninstall, simply run:
+
+```
+# for development installation:
+npm uninstall @solidlab/solid-fef-cli --save-dev
+# or
+npm rm @solidlab/solid-fef-cli -D
+
+# for global installation
+npm uninstall @solidlab/solid-fef-cli --global
+# or
+npm rm @solidlab/solid-fef-cli -g
 ```
