@@ -6,7 +6,7 @@
   "main": "./build/index.js",
   "module": "./build/index.js",
   "bin": {
-    "sfef": "./build/cli.js"
+    "sfef": "build/cli.js"
   },
   "exports": {
     ".": {
@@ -19,7 +19,7 @@
     "build"
   ],
   "scripts": {
-    "build": "./node_modules/.bin/tsc -p ."
+    "build": "tsc -p ."
   },
   "keywords": [
     "solid",
@@ -31,7 +31,7 @@
   ],
   "author": "Jordi Colomer <jordi.colomer@kromatika.com>",
   "repository": {
-    "url": "https://github.com/jordi-c/solid-fef-cli",
+    "url": "git+https://github.com/jordi-c/solid-fef-cli.git",
     "type": "git"
   },
   "license": "ISC",
