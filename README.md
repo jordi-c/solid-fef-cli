@@ -54,13 +54,13 @@ sfef create --framework --shape --css
 
 To uninstall, simply run:
 
-```
+```bash
 # for development installation:
 npm uninstall @solidlab/solid-fef-cli --save-dev
 # or
 npm rm @solidlab/solid-fef-cli -D
 
-# for global installation
+# for global installation:
 npm uninstall @solidlab/solid-fef-cli --global
 # or
 npm rm @solidlab/solid-fef-cli -g

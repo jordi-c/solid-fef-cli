@@ -26,9 +26,10 @@
     "solidlab",
     "vue",
     "angular",
+    "shacl",
     "sfef"
   ],
-  "author": "jordi.colomer@kromatika.com",
+  "author": "Jordi Colomer <jordi.colomer@kromatika.com>",
   "repository": {
     "url": "git@github.com:",
     "type": "git"
