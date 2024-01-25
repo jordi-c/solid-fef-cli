@@ -1,5 +1,5 @@
 {
-  "name": "@solidlab/solid-fef-cli",
+  "name": "@jordi-c/solid-fef-cli",
   "version": "1.0.0",
   "description": "Solid Front end Form (sfef): a command line interface for creating forms on Vue/Angular frameworks from SHACL (Shapes Constraint Language) files.",
   "type": "module",
@@ -16,7 +16,8 @@
     }
   },
   "files": [
-    "build"
+    "build",
+    ".assets"
   ],
   "scripts": {
     "build": "tsc -p ."
