@@ -1,6 +1,6 @@
 {
   "name": "@solidlab/solid-fef-cli",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Solid Front end Form (sfef): a command line interface for creating forms on Vue/Angular frameworks from SHACL (Shapes Constraint Language) files.",
   "type": "module",
   "main": "./build/index.js",
@@ -31,7 +31,7 @@
   ],
   "author": "Jordi Colomer <jordi.colomer@kromatika.com>",
   "repository": {
-    "url": "git@github.com:",
+    "url": "https://github.com/jordi-c/solid-fef-cli",
     "type": "git"
   },
   "license": "ISC",
