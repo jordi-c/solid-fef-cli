@@ -20,7 +20,8 @@
     ".assets"
   ],
   "scripts": {
-    "build": "tsc -p ."
+    "build": "tsc -p .",
+    "start": "node build/cli.js"
   },
   "keywords": [
     "solid",
@@ -35,16 +36,17 @@
     "url": "git+https://github.com/jordi-c/solid-fef-cli.git",
     "type": "git"
   },
+  "homepage": "https://github.com/jordi-c/solid-fef-cli/#README",
   "license": "ISC",
   "dependencies": {
     "@frogcat/ttl2jsonld": "^0.0.9",
-    "@types/node": "^20.11.5",
-    "@types/yargs": "^17.0.32",
-    "chalk": "^5.3.0",
-    "yargs": "^17.7.2"
+    "yargs": "^17.7.2",
+    "chalk": "^5.3.0"
   },
   "devDependencies": {
-    "typescript": "^5.3.3"
+    "typescript": "^5.3.3",
+    "@types/node": "^20.11.5",
+    "@types/yargs": "^17.0.32"
   },
   "publishConfig": {
     "access": "public"
