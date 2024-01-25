@@ -29,6 +29,8 @@ let context: object = {}
  */
 export const getListOfShapes = async() => {
     const shapesAvailable: Array<string> = []
+    const GLOBAL_SHAPES_FOLDER = process.cwd() + SHAPES_FOLDER
+    console.log('GLOBAL_SHAPES_FOLDER', GLOBAL_SHAPES_FOLDER)
     const files = await fs.promises.readdir(SHAPES_FOLDER, { withFileTypes: true })
     for (const file of files) {
         const parseFile = path.parse(file.name)
