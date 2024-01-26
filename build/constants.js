@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 export const FRAMEWORKS = ['vue', 'angular'];
-export const CUSTOM_CLASSES_FILE = '../.assets/form-custom-classes.json';
+export const CUSTOM_CLASSES_FILE = '../src/form-custom-classes.json';
 export const SHAPES_FOLDER = '../.assets/shacl';
 export const SHAPE_EXT = '.ttl';
 export const FORM_CUSTOM_ELEMENTS = [
@@ -10,11 +10,11 @@ export const FORM_CUSTOM_ELEMENTS = [
     'input-additional-info',
     'input-element'
 ];
-export const VUE_FOLDER_ORIGIN = '.assets/vue';
+export const VUE_FOLDER_ORIGIN = '../.assets/vue';
 export const VUE_FOLDER_DESTINY = 'src/vue';
 export const VUE_COMP_FOLDER = 'components';
 export const VUE_COMP_FILES = ['.vue'];
-export const ANGULAR_FOLDER_ORIGIN = '.assets/angular';
+export const ANGULAR_FOLDER_ORIGIN = '../.assets/angular';
 export const ANGULAR_FOLDER_DESTINY = 'src/app';
 export const ANGULAR_COMP_FOLDER = 'components';
 export const ANGULAR_COMP_FILES = ['.component.html', '.component.scss', '.component.ts'];

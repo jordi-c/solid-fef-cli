@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import fs from 'node:fs';
 import chalk from 'chalk';
-import { getBasicInputType, createFolder, toPascalCase, getClasses } from './utils.js';
+import { getBasicInputType, createFolder, toPascalCase, getClasses, resolvePath } from './utils.js';
 import { VUE_FOLDER_ORIGIN, VUE_FOLDER_DESTINY, VUE_COMP_FOLDER, VUE_COMP_FILES, BASIC_TYPE_MAP, VUE_COMP_DEPENDENCIES_MAP, BASIC_INPUT_MAP } from './constants.js';
 /**
  * createVueForm() is an async Public fn
@@ -32,7 +32,9 @@ export const createVueForm = async (customJson, fileName, customCss) => {
         }
         VUE_COMP_FILES.forEach(async (fileType) => {
             // copy and paste for a Basic form component
-            await fs.copyFile(`${VUE_FOLDER_ORIGIN}/${VUE_COMP_FOLDER}/${component}${fileType}`, `${VUE_FOLDER_DESTINY}/${VUE_COMP_FOLDER}/${component}${fileType}`, (err) => { if (err)
+            const vueFolderOrigin = resolvePath(VUE_FOLDER_ORIGIN);
+            console.log('vueFolderOrigin: ', vueFolderOrigin);
+            await fs.copyFile(`${vueFolderOrigin}/${VUE_COMP_FOLDER}/${component}${fileType}`, `${VUE_FOLDER_DESTINY}/${VUE_COMP_FOLDER}/${component}${fileType}`, (err) => { if (err)
                 throw err; });
             console.log('%s %s %s', chalk.italic(component), chalk.dim('component has been copied in'), chalk.italic(VUE_FOLDER_DESTINY + '/' + VUE_COMP_FOLDER));
         });

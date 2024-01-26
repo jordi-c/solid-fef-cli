@@ -11,7 +11,8 @@ import {
     getBasicInputType,
     createFolder,
     toPascalCase,
-    getClasses
+    getClasses,
+    resolvePath
 } from './utils.js'
 
 import {
@@ -58,8 +59,10 @@ export const createVueForm = async (customJson: Array<customShape>, fileName: st
         }
         VUE_COMP_FILES.forEach(async (fileType: string) => {
             // copy and paste for a Basic form component
+            const vueFolderOrigin = resolvePath(VUE_FOLDER_ORIGIN)
+            console.log('vueFolderOrigin: ', vueFolderOrigin)
             await fs.copyFile(
-                `${VUE_FOLDER_ORIGIN}/${VUE_COMP_FOLDER}/${component}${fileType}`,
+                `${vueFolderOrigin}/${VUE_COMP_FOLDER}/${component}${fileType}`,
                 `${VUE_FOLDER_DESTINY}/${VUE_COMP_FOLDER}/${component}${fileType}`,
                 (err) => { if (err) throw err }
             );

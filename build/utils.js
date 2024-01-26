@@ -44,10 +44,8 @@ export async function createClasses() {
         const classes = { 'element': element, 'classes': elementClass.split(',') };
         customClasses.push(classes);
     }
-    fs.writeFile(resolvePath(CUSTOM_CLASSES_FILE), JSON.stringify(customClasses), 'utf8', (err) => {
-        if (err)
-            console.error(err.message);
-    });
+    fs.writeFile(CUSTOM_CLASSES_FILE, JSON.stringify(customClasses), 'utf8', (err) => { if (err)
+        console.error(err.message); });
 }
 /**
  * getClasses() is a Public fn
@@ -72,14 +70,14 @@ export function getClasses(targetElement, customCSS) {
 export const readClasses = async () => {
     let customClasses = [];
     try {
-        await fs.promises.access(resolvePath(CUSTOM_CLASSES_FILE), fs.constants.F_OK);
+        await fs.promises.access(CUSTOM_CLASSES_FILE, fs.constants.F_OK);
     }
     catch (err) {
         console.error(err.message);
         return customClasses;
     }
     try {
-        const contents = await fs.promises.readFile(resolvePath(CUSTOM_CLASSES_FILE), { encoding: 'utf8' });
+        const contents = await fs.promises.readFile(CUSTOM_CLASSES_FILE, { encoding: 'utf8' });
         customClasses = JSON.parse(contents);
     }
     catch (err) {
