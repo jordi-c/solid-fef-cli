@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 import fs from 'node:fs';
 import readline from 'readline';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import { BASIC_INPUT_MAP, BASIC_TYPE_MAP, FORM_CUSTOM_ELEMENTS, CUSTOM_CLASSES_FILE } from './constants.js';
 /**
  * getBasicInputType() is a Public fn
@@ -42,7 +44,7 @@ export async function createClasses() {
         const classes = { 'element': element, 'classes': elementClass.split(',') };
         customClasses.push(classes);
     }
-    fs.writeFile(CUSTOM_CLASSES_FILE, JSON.stringify(customClasses), 'utf8', (err) => {
+    fs.writeFile(resolvePath(CUSTOM_CLASSES_FILE), JSON.stringify(customClasses), 'utf8', (err) => {
         if (err)
             console.error(err.message);
     });
@@ -70,14 +72,14 @@ export function getClasses(targetElement, customCSS) {
 export const readClasses = async () => {
     let customClasses = [];
     try {
-        await fs.promises.access(CUSTOM_CLASSES_FILE, fs.constants.F_OK);
+        await fs.promises.access(resolvePath(CUSTOM_CLASSES_FILE), fs.constants.F_OK);
     }
     catch (err) {
         console.error(err.message);
         return customClasses;
     }
     try {
-        const contents = await fs.promises.readFile(CUSTOM_CLASSES_FILE, { encoding: 'utf8' });
+        const contents = await fs.promises.readFile(resolvePath(CUSTOM_CLASSES_FILE), { encoding: 'utf8' });
         customClasses = JSON.parse(contents);
     }
     catch (err) {
@@ -94,6 +96,15 @@ export const createFolder = async (folder) => {
     if (!fs.existsSync(folder)) {
         await fs.promises.mkdir(folder);
     }
+};
+export const resolvePath = (relativePath) => {
+    // get actual js file path and directory name
+    const __filename = fileURLToPath(import.meta.url);
+    const __dirname = path.dirname(__filename);
+    console.log('path.resolve : ', path.resolve(__dirname, relativePath));
+    console.log('-----------------------------------------');
+    // resolve absolute path
+    return path.resolve(__dirname, relativePath);
 };
 /**
  * toKebabCase() is Public fn
