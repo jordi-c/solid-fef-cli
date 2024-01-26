@@ -57,7 +57,8 @@ export const getShape = async (file: string) => {
     let graph = []
 
     try {
-        const ttlShape = await fs.promises.readFile(`${SHAPES_FOLDER}/${file}${SHAPE_EXT}`, { encoding: 'utf8' });
+        const shapesFolder = resolveOriginPath(SHAPES_FOLDER)
+        const ttlShape = await fs.promises.readFile(`${shapesFolder}/${file}${SHAPE_EXT}`, { encoding: 'utf8' });
         const jsonLdShape = ttl2json.parse(ttlShape)
 
         context = jsonLdShape['@context']
