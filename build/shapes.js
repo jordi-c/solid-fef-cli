@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import fs from 'node:fs';
 import path from 'path';
+import { fileURLToPath } from 'url';
 import ttl2json from '@frogcat/ttl2jsonld';
 import { SHAPES_FOLDER, SHAPE_EXT } from './constants.js';
 import { toKebabCase, unCamelCase } from './utils.js';
@@ -13,9 +14,13 @@ let context = {};
 export const getListOfShapes = async () => {
     const shapesAvailable = [];
     const GLOBAL_SHAPES_FOLDER = process.cwd() + SHAPES_FOLDER;
-    console.log('process.cwd(): ', GLOBAL_SHAPES_FOLDER);
+    console.log('process.cwd() ::::: ', GLOBAL_SHAPES_FOLDER);
+    const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
+    console.log('__filename :::::::: ', __filename);
+    const __dirname = path.dirname(__filename); // get the name of the directory
+    console.log('__dirnam :::::::::: ', __dirname);
     const filePath = path.resolve(__dirname, SHAPES_FOLDER);
-    console.log('path.resolve: ', GLOBAL_SHAPES_FOLDER);
+    console.log('path.resolve :::::: ', GLOBAL_SHAPES_FOLDER);
     console.log('-----------------------------------------');
     const files = await fs.promises.readdir(GLOBAL_SHAPES_FOLDER, { withFileTypes: true });
     for (const file of files) {
