@@ -13,7 +13,10 @@ let context = {};
 export const getListOfShapes = async () => {
     const shapesAvailable = [];
     const GLOBAL_SHAPES_FOLDER = process.cwd() + SHAPES_FOLDER;
-    console.log('GLOBAL_SHAPES_FOLDER', GLOBAL_SHAPES_FOLDER);
+    console.log('process.cwd(): ', GLOBAL_SHAPES_FOLDER);
+    const filePath = path.resolve(__dirname, SHAPES_FOLDER);
+    console.log('path.resolve: ', GLOBAL_SHAPES_FOLDER);
+    console.log('-----------------------------------------');
     const files = await fs.promises.readdir(GLOBAL_SHAPES_FOLDER, { withFileTypes: true });
     for (const file of files) {
         const parseFile = path.parse(file.name);
