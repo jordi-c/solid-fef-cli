@@ -18,7 +18,7 @@ import {
 import {
     toKebabCase,
     unCamelCase,
-    resolvePath
+    resolveOriginPath
 } from './utils.js'
 
 let context: object = {}
@@ -31,7 +31,7 @@ let context: object = {}
 export const getListOfShapes = async() => {
     const shapesAvailable: Array<string> = []
     const files = await fs.promises.readdir(
-        resolvePath(SHAPES_FOLDER),
+        resolveOriginPath(SHAPES_FOLDER),
         { withFileTypes: true }
     )
     for (const file of files) {

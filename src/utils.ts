@@ -60,7 +60,7 @@ export async function createClasses() {
         const classes: customClass = {'element': element, 'classes': elementClass.split(',')}
         customClasses.push(classes)
     }
-    fs.writeFile(CUSTOM_CLASSES_FILE, JSON.stringify(customClasses), 'utf8',
+    fs.writeFile(resolveDestinyPath(CUSTOM_CLASSES_FILE), JSON.stringify(customClasses), 'utf8',
         (err) => {if (err) console.error(err.message)}
     ) 
 }
@@ -89,13 +89,13 @@ export function getClasses(targetElement: string, customCSS: Array<customClass>)
 export const readClasses = async(): Promise<customClass[]> => {
     let customClasses: customClass[] = []
     try {
-        await fs.promises.access(CUSTOM_CLASSES_FILE, fs.constants.F_OK)
+        await fs.promises.access(resolveDestinyPath(CUSTOM_CLASSES_FILE), fs.constants.F_OK)
     } catch (err: any) {
         console.error(err.message)
         return customClasses
     }
     try {
-        const contents = await fs.promises.readFile(CUSTOM_CLASSES_FILE, { encoding: 'utf8' })
+        const contents = await fs.promises.readFile(resolveDestinyPath(CUSTOM_CLASSES_FILE), { encoding: 'utf8' })
         customClasses = JSON.parse(contents)
     } catch (err: any) {
         console.error(err.message)
@@ -114,11 +114,20 @@ export const createFolder = async(folder: string) => {
     }
 }
 
-export const resolvePath = (relativePath: string): string => {
+export const resolveOriginPath = (relativePath: string): string => {
     // get actual js file path and directory name
     const __filename = fileURLToPath(import.meta.url)
     const __dirname = path.dirname(__filename)
     console.log('path.resolve : ', path.resolve(__dirname, relativePath))
+    console.log('-----------------------------------------')
+    // resolve absolute path
+    return path.resolve(__dirname, relativePath)
+}
+
+export const resolveDestinyPath = (relativePath: string): string => {
+    // get actual js file path and directory name
+    const __dirname = process.cwd()
+    console.log('path.resolve : ', __dirname)
     console.log('-----------------------------------------')
     // resolve absolute path
     return path.resolve(__dirname, relativePath)

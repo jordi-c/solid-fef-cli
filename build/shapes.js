@@ -3,7 +3,7 @@ import fs from 'node:fs';
 import path from 'path';
 import ttl2json from '@frogcat/ttl2jsonld';
 import { SHAPES_FOLDER, SHAPE_EXT } from './constants.js';
-import { toKebabCase, unCamelCase, resolvePath } from './utils.js';
+import { toKebabCase, unCamelCase, resolveOriginPath } from './utils.js';
 let context = {};
 /**
  * getListOfShapes() is an async Public fn
@@ -12,7 +12,7 @@ let context = {};
  */
 export const getListOfShapes = async () => {
     const shapesAvailable = [];
-    const files = await fs.promises.readdir(resolvePath(SHAPES_FOLDER), { withFileTypes: true });
+    const files = await fs.promises.readdir(resolveOriginPath(SHAPES_FOLDER), { withFileTypes: true });
     for (const file of files) {
         const parseFile = path.parse(file.name);
         if (file.isFile() && parseFile.ext === SHAPE_EXT) {

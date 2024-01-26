@@ -32,7 +32,8 @@ export declare const readClasses: () => Promise<customClass[]>;
  * @param {string} folder name
  */
 export declare const createFolder: (folder: string) => Promise<void>;
-export declare const resolvePath: (relativePath: string) => string;
+export declare const resolveOriginPath: (relativePath: string) => string;
+export declare const resolveDestinyPath: (relativePath: string) => string;
 /**
  * toKebabCase() is Public fn
  * e.g. from "abcDefGhi" to "abc-def-ghi"

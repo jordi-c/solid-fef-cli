@@ -44,7 +44,7 @@ export async function createClasses() {
         const classes = { 'element': element, 'classes': elementClass.split(',') };
         customClasses.push(classes);
     }
-    fs.writeFile(CUSTOM_CLASSES_FILE, JSON.stringify(customClasses), 'utf8', (err) => { if (err)
+    fs.writeFile(resolveDestinyPath(CUSTOM_CLASSES_FILE), JSON.stringify(customClasses), 'utf8', (err) => { if (err)
         console.error(err.message); });
 }
 /**
@@ -70,14 +70,14 @@ export function getClasses(targetElement, customCSS) {
 export const readClasses = async () => {
     let customClasses = [];
     try {
-        await fs.promises.access(CUSTOM_CLASSES_FILE, fs.constants.F_OK);
+        await fs.promises.access(resolveDestinyPath(CUSTOM_CLASSES_FILE), fs.constants.F_OK);
     }
     catch (err) {
         console.error(err.message);
         return customClasses;
     }
     try {
-        const contents = await fs.promises.readFile(CUSTOM_CLASSES_FILE, { encoding: 'utf8' });
+        const contents = await fs.promises.readFile(resolveDestinyPath(CUSTOM_CLASSES_FILE), { encoding: 'utf8' });
         customClasses = JSON.parse(contents);
     }
     catch (err) {
@@ -95,11 +95,19 @@ export const createFolder = async (folder) => {
         await fs.promises.mkdir(folder);
     }
 };
-export const resolvePath = (relativePath) => {
+export const resolveOriginPath = (relativePath) => {
     // get actual js file path and directory name
     const __filename = fileURLToPath(import.meta.url);
     const __dirname = path.dirname(__filename);
     console.log('path.resolve : ', path.resolve(__dirname, relativePath));
+    console.log('-----------------------------------------');
+    // resolve absolute path
+    return path.resolve(__dirname, relativePath);
+};
+export const resolveDestinyPath = (relativePath) => {
+    // get actual js file path and directory name
+    const __dirname = process.cwd();
+    console.log('path.resolve : ', __dirname);
     console.log('-----------------------------------------');
     // resolve absolute path
     return path.resolve(__dirname, relativePath);
