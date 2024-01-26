@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 export const FRAMEWORKS: string[] = ['vue', 'angular']
-export const CUSTOM_CLASSES_FILE: string = 'src/form-custom-classes.json'
+export const CUSTOM_CLASSES_FILE: string = './src/form-custom-classes.json'
 export const SHAPES_FOLDER: string = '../.assets/shacl'
 export const SHAPE_EXT: string = '.ttl'
 export const FORM_CUSTOM_ELEMENTS: string[] = [
