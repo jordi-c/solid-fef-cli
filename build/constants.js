@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 export const FRAMEWORKS = ['vue', 'angular'];
 export const CUSTOM_CLASSES_FILE = '.assets/form-custom-classes.json';
-export const SHAPES_FOLDER = '/.assets/shacl';
+export const SHAPES_FOLDER = '../.assets/shacl';
 export const SHAPE_EXT = '.ttl';
 export const FORM_CUSTOM_ELEMENTS = [
     'form',

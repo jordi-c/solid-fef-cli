@@ -35,11 +35,11 @@ export const getListOfShapes = async() => {
     const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
     console.log('__filename :::::::: ', __filename)
     const __dirname = path.dirname(__filename); // get the name of the directory
-    console.log('__dirnam :::::::::: ', __dirname)
+    console.log('__dirname ::::::::: ', __dirname)
     const filePath = path.resolve(__dirname, SHAPES_FOLDER)
-    console.log('path.resolve :::::: ', GLOBAL_SHAPES_FOLDER)
+    console.log('path.resolve :::::: ', filePath)
     console.log('-----------------------------------------')
-    const files = await fs.promises.readdir(GLOBAL_SHAPES_FOLDER, { withFileTypes: true })
+    const files = await fs.promises.readdir(filePath, { withFileTypes: true })
     for (const file of files) {
         const parseFile = path.parse(file.name)
         if (file.isFile() && parseFile.ext === SHAPE_EXT) {
