@@ -32,8 +32,15 @@ export declare const readClasses: () => Promise<customClass[]>;
  * @param {string} folder name
  */
 export declare const createFolder: (folder: string) => Promise<void>;
+/**
+ * resolveOriginPath() is Public fn
+ * takes a relative path (related to the solid-fef-cli package)
+ * and returns its absolute path
+ * e.g. '../.assets/shacl' > '/usr/local/lib/node_modules/@solidlab/solid-fef-cli/.assets/shacl'
+ * @param {string} relativePath is a cli package relative path
+ * @returns {string} an absolute path
+ */
 export declare const resolveOriginPath: (relativePath: string) => string;
-export declare const resolveDestinyPath: (relativePath: string) => string;
 /**
  * toKebabCase() is Public fn
  * e.g. from "abcDefGhi" to "abc-def-ghi"

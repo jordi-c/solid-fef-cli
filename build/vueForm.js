@@ -33,7 +33,6 @@ export const createVueForm = async (customJson, fileName, customCss) => {
         VUE_COMP_FILES.forEach(async (fileType) => {
             // copy and paste for a Basic form component
             const vueFolderOrigin = resolveOriginPath(VUE_FOLDER_ORIGIN);
-            console.log('vueFolderOrigin: ', vueFolderOrigin);
             await fs.copyFile(`${vueFolderOrigin}/${VUE_COMP_FOLDER}/${component}${fileType}`, `${VUE_FOLDER_DESTINY}/${VUE_COMP_FOLDER}/${component}${fileType}`, (err) => { if (err)
                 throw err; });
             console.log('%s %s %s', chalk.italic(component), chalk.dim('component has been copied in'), chalk.italic(VUE_FOLDER_DESTINY + '/' + VUE_COMP_FOLDER));

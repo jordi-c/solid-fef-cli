@@ -3,6 +3,7 @@ import fs from 'node:fs';
 import readline from 'readline';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import chalk from 'chalk';
 import { BASIC_INPUT_MAP, BASIC_TYPE_MAP, FORM_CUSTOM_ELEMENTS, CUSTOM_CLASSES_FILE } from './constants.js';
 /**
  * getBasicInputType() is a Public fn
@@ -45,7 +46,7 @@ export async function createClasses() {
         customClasses.push(classes);
     }
     fs.writeFile(CUSTOM_CLASSES_FILE, JSON.stringify(customClasses), 'utf8', (err) => { if (err)
-        console.error(err.message); });
+        console.error(chalk.red(err.message)); });
 }
 /**
  * getClasses() is a Public fn
@@ -73,7 +74,7 @@ export const readClasses = async () => {
         await fs.promises.access(CUSTOM_CLASSES_FILE, fs.constants.F_OK);
     }
     catch (err) {
-        console.error('no file available.\n', err.message);
+        console.error('no file available.\n', chalk.red(err.message));
         return customClasses;
     }
     try {
@@ -81,7 +82,7 @@ export const readClasses = async () => {
         customClasses = JSON.parse(contents);
     }
     catch (err) {
-        console.error('not able to read the file.\n', err.message);
+        console.error('not able to read the file.\n', chalk.red(err.message));
     }
     return customClasses;
 };
@@ -95,20 +96,18 @@ export const createFolder = async (folder) => {
         await fs.promises.mkdir(folder);
     }
 };
+/**
+ * resolveOriginPath() is Public fn
+ * takes a relative path (related to the solid-fef-cli package)
+ * and returns its absolute path
+ * e.g. '../.assets/shacl' > '/usr/local/lib/node_modules/@solidlab/solid-fef-cli/.assets/shacl'
+ * @param {string} relativePath is a cli package relative path
+ * @returns {string} an absolute path
+ */
 export const resolveOriginPath = (relativePath) => {
     // get actual js file path and directory name
     const __filename = fileURLToPath(import.meta.url);
     const __dirname = path.dirname(__filename);
-    console.log('resolveOriginPath : ', path.resolve(__dirname, relativePath), relativePath);
-    console.log('-----------------------------------------');
-    // resolve absolute path
-    return path.resolve(__dirname, relativePath);
-};
-export const resolveDestinyPath = (relativePath) => {
-    // get actual js file path and directory name
-    const __dirname = process.cwd();
-    console.log('resolveDestinyPath : ', __dirname, relativePath);
-    console.log('-----------------------------------------');
     // resolve absolute path
     return path.resolve(__dirname, relativePath);
 };

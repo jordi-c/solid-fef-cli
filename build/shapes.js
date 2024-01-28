@@ -71,7 +71,6 @@ const convertShape = (shapes) => {
         }
         customShapes.push(customShape);
     });
-    // console.log('>>>>>> customShapes : \n', customShapes);
     return customShapes;
 };
 /**

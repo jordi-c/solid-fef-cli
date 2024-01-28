@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import fs from 'node:fs';
 import chalk from 'chalk';
-import { getBasicInputType, createFolder, toPascalCase, toKebabCase, getClasses } from './utils.js';
+import { getBasicInputType, createFolder, toPascalCase, toKebabCase, getClasses, resolveOriginPath } from './utils.js';
 import { ANGULAR_FOLDER_ORIGIN, ANGULAR_FOLDER_DESTINY, ANGULAR_COMP_FOLDER, ANGULAR_COMP_FILES, BASIC_TYPE_MAP, ANGULAR_COMP_DEPENDENCIES_MAP, BASIC_INPUT_MAP } from './constants.js';
 /**
  * createVueForm() is an async Public fn
@@ -35,7 +35,8 @@ export const createAngularForm = async (customJson, fileName, customCss) => {
         await createFolder(`${ANGULAR_FOLDER_DESTINY}/${ANGULAR_COMP_FOLDER}/${component}`);
         ANGULAR_COMP_FILES.forEach(async (fileType) => {
             // copy and paste for a Basic form component
-            await fs.copyFile(`${ANGULAR_FOLDER_ORIGIN}/${ANGULAR_COMP_FOLDER}/${component}/${component}${fileType}`, `${ANGULAR_FOLDER_DESTINY}/${ANGULAR_COMP_FOLDER}/${component}/${component}${fileType}`, (err) => { if (err)
+            const angularFolderOrigin = resolveOriginPath(ANGULAR_FOLDER_ORIGIN);
+            await fs.copyFile(`${angularFolderOrigin}/${ANGULAR_COMP_FOLDER}/${component}/${component}${fileType}`, `${ANGULAR_FOLDER_DESTINY}/${ANGULAR_COMP_FOLDER}/${component}/${component}${fileType}`, (err) => { if (err)
                 throw err; });
         });
         console.log('%s %s %s', chalk.italic(component), chalk.dim('component has been copied in'), chalk.italic(ANGULAR_FOLDER_DESTINY + '/' + ANGULAR_COMP_FOLDER));

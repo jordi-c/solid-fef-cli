@@ -60,7 +60,6 @@ export const createVueForm = async (customJson: Array<customShape>, fileName: st
         VUE_COMP_FILES.forEach(async (fileType: string) => {
             // copy and paste for a Basic form component
             const vueFolderOrigin = resolveOriginPath(VUE_FOLDER_ORIGIN)
-            console.log('vueFolderOrigin: ', vueFolderOrigin)
             await fs.copyFile(
                 `${vueFolderOrigin}/${VUE_COMP_FOLDER}/${component}${fileType}`,
                 `${VUE_FOLDER_DESTINY}/${VUE_COMP_FOLDER}/${component}${fileType}`,

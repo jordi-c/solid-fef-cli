@@ -95,7 +95,6 @@ const convertShape = (shapes: Array<jsonLDGraph>) => {
         }
         customShapes.push(customShape);
     });
-    // console.log('>>>>>> customShapes : \n', customShapes);
     return customShapes;
 }
 

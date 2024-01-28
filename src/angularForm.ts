@@ -12,7 +12,8 @@ import {
     createFolder,
     toPascalCase,
     toKebabCase,
-    getClasses
+    getClasses,
+    resolveOriginPath
 } from './utils.js'
 
 import {
@@ -62,8 +63,9 @@ export const createAngularForm = async (customJson: Array<customShape>, fileName
         await createFolder(`${ANGULAR_FOLDER_DESTINY}/${ANGULAR_COMP_FOLDER}/${component}`);
         ANGULAR_COMP_FILES.forEach(async (fileType: string) => {
             // copy and paste for a Basic form component
+            const angularFolderOrigin = resolveOriginPath(ANGULAR_FOLDER_ORIGIN)
             await fs.copyFile(
-                `${ANGULAR_FOLDER_ORIGIN}/${ANGULAR_COMP_FOLDER}/${component}/${component}${fileType}`,
+                `${angularFolderOrigin}/${ANGULAR_COMP_FOLDER}/${component}/${component}${fileType}`,
                 `${ANGULAR_FOLDER_DESTINY}/${ANGULAR_COMP_FOLDER}/${component}/${component}${fileType}`,
                 (err) => { if (err) throw err }
             )
