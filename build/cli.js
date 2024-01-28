@@ -82,6 +82,6 @@ yargsInstance
     .alias('h', 'help')
     .help('help', chalk.dim('Show help'))
     .alias('v', 'version')
-    .version('version', chalk.dim('Show version number'), '0.1.0')
+    .version('version', chalk.dim('Show version number'), '1.0.0')
     .argv;
 //# sourceMappingURL=cli.js.map
