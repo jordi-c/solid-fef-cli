@@ -25,12 +25,18 @@ export type customShape = {
     'title': string,
     'elements': Array<element>
 }
+export type elementList = {
+    'label': string,
+    'value': string
+}
 export type element = {
     'id': string,
     'name': string,
     'description'?: string,
     'max'?: number,
     'min'?: number,
+    'pattern'?: string | any,
+    'list'?: elementList[],
     'type': string
 }
 

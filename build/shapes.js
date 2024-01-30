@@ -83,17 +83,25 @@ const convertShape = (shapes) => {
 function analyzeProperties(properties, parentIndex) {
     let elements = [];
     properties.forEach((property, propertyIndex) => {
+        console.log('---> property : ', property);
         let element = { type: '', name: '', id: '' };
         if ('sh:name' in property) {
             const name = property['sh:name'];
             element.name = unCamelCase(name);
-            element.id = `${toKebabCase(name)}-${parentIndex}-${propertyIndex}`;
         }
         else if ('sh:path') {
             const dataPath = property['sh:path'];
             const path = extractNameFromIdArray(Object.values(dataPath)[0]);
             element.name = unCamelCase(path);
+        }
+        if ('sh:path') {
+            const dataPath = property['sh:path'];
+            const path = extractNameFromIdArray(Object.values(dataPath)[0]);
             element.id = `${toKebabCase(path)}-${parentIndex}-${propertyIndex}`;
+        }
+        else if ('sh:name' in property) {
+            const name = property['sh:name'];
+            element.id = `${toKebabCase(name)}-${parentIndex}-${propertyIndex}`;
         }
         if ('sh:description' in property) {
             element.description = property['sh:description'];
@@ -103,6 +111,16 @@ function analyzeProperties(properties, parentIndex) {
         }
         if ('sh:minCount' in property) {
             element.min = property['sh:minCount'];
+        }
+        if ('sh:pattern' in property) {
+            element.pattern = property['sh:pattern'];
+        }
+        if ('sh:in' in property) {
+            const dataList = property['sh:in'];
+            const list = Object.values(dataList)[0];
+            if (list.length) {
+                element.list = createList(list);
+            }
         }
         if ('sh:datatype' in property) {
             const dataType = property['sh:datatype'];
@@ -127,6 +145,22 @@ function extractNameFromIdArray(name) {
         name = removeContext(name);
     }
     return name;
+}
+/**
+ * createList() is a Private fn
+ * @param {string[]} list
+ * @returns {elementList[]} Object
+ */
+function createList(list) {
+    const listObject = [];
+    list.forEach((listElement) => {
+        const elementObject = {
+            'label': unCamelCase(listElement),
+            'value': listElement
+        };
+        listObject.push(elementObject);
+    });
+    return listObject;
 }
 /**
  * removeContext() is a Private fn

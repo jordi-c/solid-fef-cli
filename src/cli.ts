@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 import yargs, { Arguments, ArgumentsCamelCase } from 'yargs'
-import { hideBin } from 'yargs/helpers'
+import fs from 'node:fs'
 import chalk from 'chalk'
+import { hideBin } from 'yargs/helpers'
 import { createClasses, readClasses } from './utils.js'
 import { getListOfShapes, getShape } from './shapes.js'
 import { createVueForm } from './vueForm.js'
@@ -18,6 +19,7 @@ import {
 
 let FORM_SHAPES: string[] = await getListOfShapes()
 const yargsInstance = yargs(hideBin(process.argv))
+const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'))
 
 /**
  * Commands:
@@ -106,5 +108,5 @@ yargsInstance
     .alias('h', 'help')
     .help('help', chalk.dim('Show help'))
     .alias('v', 'version')
-    .version('version', chalk.dim('Show version number'),'1.0.0')
+    .version('version', chalk.dim('Show version number'), pkg.version)
     .argv

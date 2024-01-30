@@ -67,8 +67,7 @@ function getTemplateMarkup(customJson, fileName, customCss, basicComponents) {
                     basicComponents.add(basicComponent);
                 templateMarkup += `
     <app-basic-input
-        inputType="${element.type === 'boolean' ? 'checkbox' : 'text'}"
-        inputTypeAlt="${getBasicInputType(element)}"
+        inputType="${getBasicInputType(element)}"
         inputId="${eval(inputId)}"
         inputName="${element.id}"
         inputForm="${fileName}"
@@ -84,8 +83,20 @@ function getTemplateMarkup(customJson, fileName, customCss, basicComponents) {
         inputAdditionalInfo="${element.description}"
         inputLabelInfoClass="${getClasses('input-additional-info', customCss)}"`;
                 }
+                if (element.min) {
+                    templateMarkup += `
+        inputRequired="true"`;
+                }
+                if (element.list) {
+                    templateMarkup += `
+        inputListId="list-${element.id}"
+        inputListOptions='${JSON.stringify(element.list)}'`;
+                }
+                if (element.pattern) {
+                    templateMarkup += `
+        inputPattern="${element.pattern}"`;
+                }
                 templateMarkup += `
-        ${element.min ? 'inputRequired="true"' : ''}
     ></app-basic-input>`;
             });
         }

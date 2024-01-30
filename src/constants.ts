@@ -121,7 +121,7 @@ export const BASIC_INPUT_MAP = new Map<string, string>([
     ['inputMin', ''],
     ['inputMinlength', ''],
     ['inputMultiple', ''],
-    ['inputPattern', ''],
+    ['inputPattern', 'element.pattern'],
     ['inputPlaceholder', ''],
     ['inputPopovertarget', ''],
     ['inputPopovertargetaction', ''],
