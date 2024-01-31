@@ -9,6 +9,7 @@ import { createVueForm } from './vueForm.js'
 import { createAngularForm } from './angularForm.js'
 
 import {
+    PKG,
     FRAMEWORKS
 } from './constants.js'
 
@@ -17,10 +18,13 @@ import {
     createOpt
 } from './types.js'
 
+import {
+    resolveOriginPath
+} from './utils.js'
+
 let FORM_SHAPES: string[] = await getListOfShapes()
 const yargsInstance = yargs(hideBin(process.argv))
-const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'))
-
+const pkg = JSON.parse(fs.readFileSync(resolveOriginPath(PKG), 'utf8'))
 /**
  * Commands:
  * * create --framework [vue|angular] --shape [shapeFileName] --css

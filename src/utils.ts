@@ -138,7 +138,8 @@ export const resolveOriginPath = (relativePath: string): string => {
  * @returns {string} in KebabCase
  */
 export const toKebabCase = (word: string): string => {
-    return word.replace(/((?<=[a-z\d])[A-Z]|(?<=[A-Z\d])[A-Z](?=[a-z]))/g, '-$1').toLowerCase();
+    const newString = word.replace(/((?<=[a-z\d])[A-Z]|(?<=[A-Z\d])[A-Z](?=[a-z]))/g, '-$1').toLowerCase();
+    return newString.replace(/\s/g, '-')
 }
 
 /**

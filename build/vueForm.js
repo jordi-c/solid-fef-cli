@@ -11,6 +11,7 @@ import { VUE_FOLDER_ORIGIN, VUE_FOLDER_DESTINY, VUE_COMP_FOLDER, VUE_COMP_FILES,
  * @param {Array<customClass>} customCss
  */
 export const createVueForm = async (customJson, fileName, customCss) => {
+    console.log('customJson: ', customJson[0]);
     const basicComponents = new Set();
     const fileComponent = `Form${toPascalCase(fileName)}`;
     // Create folders for shape form component

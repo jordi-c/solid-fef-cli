@@ -118,7 +118,8 @@ export const resolveOriginPath = (relativePath) => {
  * @returns {string} in KebabCase
  */
 export const toKebabCase = (word) => {
-    return word.replace(/((?<=[a-z\d])[A-Z]|(?<=[A-Z\d])[A-Z](?=[a-z]))/g, '-$1').toLowerCase();
+    const newString = word.replace(/((?<=[a-z\d])[A-Z]|(?<=[A-Z\d])[A-Z](?=[a-z]))/g, '-$1').toLowerCase();
+    return newString.replace(/\s/g, '-');
 };
 /**
  * unCamelCase() is Public fn

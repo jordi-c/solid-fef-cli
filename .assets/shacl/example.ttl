@@ -30,6 +30,15 @@ schema:PersonShape
         sh:in ( "female" "male" ) ;
     ] ;
     sh:property [
+        sh:path schema:email;
+        sh:name "E-mail address" ;
+        sh:datatype xsd:string ;
+    ]  ;
+    sh:property [
+        sh:name "Receive newsletter" ;
+        sh:datatype xsd:boolean;
+    ] ;
+    sh:property [
         sh:path schema:address ;
         sh:node schema:AddressShape ;
     ] .

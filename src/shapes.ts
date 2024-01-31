@@ -116,15 +116,17 @@ function analyzeProperties(properties: property[], parentIndex: number) {
         if ('sh:name' in property) {
             const name: string = property['sh:name']!
             element.name= unCamelCase(name)
-        } else if ('sh:path') {
+        } else if ('sh:path' in property) {
             const dataPath: Object = property['sh:path']!
             const path: string = extractNameFromIdArray(Object.values(dataPath)[0])
             element.name= unCamelCase(path)
         }
-        if ('sh:path') {
+        if ('sh:path' in property) {
             const dataPath: Object = property['sh:path']!
             const path: string = extractNameFromIdArray(Object.values(dataPath)[0])
             element.id = `${toKebabCase(path)}-${parentIndex}-${propertyIndex}`
+            // exception for schema:email
+            if (path === 'email') { element.type = path }
         } else if ('sh:name' in property) {
             const name: string = property['sh:name']!
             element.id = `${toKebabCase(name)}-${parentIndex}-${propertyIndex}`
@@ -146,7 +148,7 @@ function analyzeProperties(properties: property[], parentIndex: number) {
             const list: string[] = Object.values(dataList)[0]
             if (list.length) { element.list = createList(list) }
         }
-        if ('sh:datatype' in property) {
+        if ('sh:datatype' in property && !element.type.length) {
             const dataType: Object = property['sh:datatype']!
             const type: string = Object.values(dataType)[0]
             element.type = extractNameFromIdArray(type)

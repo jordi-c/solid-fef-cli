@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+export declare const PKG: string;
 export declare const FRAMEWORKS: string[];
 export declare const CUSTOM_CLASSES_FILE: string;
 export declare const SHAPES_FOLDER: string;

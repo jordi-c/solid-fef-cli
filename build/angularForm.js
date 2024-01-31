@@ -18,10 +18,10 @@ export const createAngularForm = async (customJson, fileName, customCss) => {
     await createFolder(`${ANGULAR_FOLDER_DESTINY}/${fileComponent}`);
     // create & write HTML shape form component
     const formHTML = getTemplateMarkup(customJson, fileName, customCss, basicComponents);
-    await fs.promises.writeFile(`${ANGULAR_FOLDER_DESTINY}/${fileComponent}/${fileComponent}.html`, formHTML);
+    await fs.promises.writeFile(`${ANGULAR_FOLDER_DESTINY}/${fileComponent}/${fileComponent}${ANGULAR_COMP_FILES[0]}`, formHTML);
     // create & write TS shape form component
     const formTS = getScriptMarkup(fileComponent, basicComponents);
-    await fs.promises.writeFile(`${ANGULAR_FOLDER_DESTINY}/${fileComponent}/${fileComponent}.ts`, formTS);
+    await fs.promises.writeFile(`${ANGULAR_FOLDER_DESTINY}/${fileComponent}/${fileComponent}${ANGULAR_COMP_FILES[2]}`, formTS);
     console.log('%s %s %s', chalk.italic(fileComponent), chalk.dim('component has been created in'), chalk.italic(ANGULAR_FOLDER_DESTINY));
     // create main folder for Basic form components
     await createFolder(`${ANGULAR_FOLDER_DESTINY}/${ANGULAR_COMP_FOLDER}`);
@@ -133,9 +133,10 @@ import { ${component}Component } from "../${ANGULAR_COMP_FOLDER}/${component}/${
     scriptMarkup += `
     ],
     templateUrl: './${fileName}.component.html',
-    styleUrl: './${fileName}.component.scss',
     encapsulation: ViewEncapsulation.None
 })
+export class ${fileName} {
+}
 `;
     return scriptMarkup;
 }

@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+export const PKG = '../package.json';
 export const FRAMEWORKS = ['vue', 'angular'];
 export const CUSTOM_CLASSES_FILE = './src/form-custom-classes.json';
 export const SHAPES_FOLDER = '../.assets/shacl';
@@ -32,6 +33,7 @@ export const ANGULAR_COMP_FILES = ['.component.html', '.component.scss', '.compo
  */
 export const BASIC_TYPE_MAP = new Map([
     ['', ['BasicInput', 'text']],
+    ['email', ['BasicInput', 'email']],
     ['string', ['BasicInput', 'text']],
     ['lang String', ['BasicInput', 'text']],
     ['boolean', ['BasicInput', 'checkbox']],

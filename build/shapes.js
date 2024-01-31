@@ -89,15 +89,19 @@ function analyzeProperties(properties, parentIndex) {
             const name = property['sh:name'];
             element.name = unCamelCase(name);
         }
-        else if ('sh:path') {
+        else if ('sh:path' in property) {
             const dataPath = property['sh:path'];
             const path = extractNameFromIdArray(Object.values(dataPath)[0]);
             element.name = unCamelCase(path);
         }
-        if ('sh:path') {
+        if ('sh:path' in property) {
             const dataPath = property['sh:path'];
             const path = extractNameFromIdArray(Object.values(dataPath)[0]);
             element.id = `${toKebabCase(path)}-${parentIndex}-${propertyIndex}`;
+            // exception for schema:email
+            if (path === 'email') {
+                element.type = path;
+            }
         }
         else if ('sh:name' in property) {
             const name = property['sh:name'];
@@ -122,7 +126,7 @@ function analyzeProperties(properties, parentIndex) {
                 element.list = createList(list);
             }
         }
-        if ('sh:datatype' in property) {
+        if ('sh:datatype' in property && !element.type.length) {
             const dataType = property['sh:datatype'];
             const type = Object.values(dataType)[0];
             element.type = extractNameFromIdArray(type);
