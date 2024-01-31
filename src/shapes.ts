@@ -21,7 +21,6 @@ import {
     unCamelCase,
     resolveOriginPath
 } from './utils.js'
-import { stringify } from 'node:querystring'
 
 let context: object = {}
 
@@ -47,20 +46,49 @@ export const getListOfShapes = async() => {
 
 /**
  * getShape() is an async Public fn
- * Reads the .ttl file converts it to JSONLD
- * and ensures @graph Array type
- * and sets @context on global level
- * and finally ...
- * returns the JSONLD converted to a custom JSON using convertShape()
+ * Calls readShape() first with file as a absolute path
+ * and if it fails it tries a relative path
+ * and returns the @graph data converted to a custom JSON using convertShape()
  * @param {string} file is the name of the shape to read
  * @returns {Promise<customShape>} custom JSON shape
  */
 export const getShape = async (file: string) => {
+    let graph: any = []
+    const shapesFolder = resolveOriginPath(SHAPES_FOLDER)
+    const relativeFile = `${shapesFolder}/${file}${SHAPE_EXT}`
+    const files: string[] = [file, relativeFile]
+
+    for (const filePath of files) {
+        graph = await readShape(filePath)
+        if (graph !== null) break
+    }
+    if (graph === null) {
+        return false
+    }
+
+    return convertShape(graph)
+}
+
+/**
+ * readShape() is an async Private fn
+ * Reads the .ttl file and converts it to JSONLD
+ * and ensures @graph Array type
+ * and sets @context on global level
+ * and finally returns @graph
+ * @param {string} file expect a .ttl file path
+ * @returns {object[]} graph data from JSONLD
+ * 
+ * examples of valid 'file' values:
+ * - 'adresregister-SHACL' 
+ *    > relative path expected to be in '/Users/myname/node_modules/@solidlab/solid-fef-cli/.assets/shacl/'
+ * - '/Users/myname/Documents/GIT/myProject/.shapes/my-project-shape.ttl'
+ *    > absolute path
+ */
+const readShape = async (file: string) => {
     let graph = []
 
     try {
-        const shapesFolder = resolveOriginPath(SHAPES_FOLDER)
-        const ttlShape = await fs.promises.readFile(`${shapesFolder}/${file}${SHAPE_EXT}`, { encoding: 'utf8' });
+        const ttlShape = await fs.promises.readFile(file, { encoding: 'utf8' })
         const jsonLdShape = ttl2json.parse(ttlShape)
 
         context = jsonLdShape['@context']
@@ -71,9 +99,10 @@ export const getShape = async (file: string) => {
             graph= [singleGraph]
         }
     } catch (err: any) {
-        console.error(err.message);
+        return null
     }
-    return convertShape(graph)
+
+    return graph
 }
 
 /**
@@ -84,9 +113,10 @@ export const getShape = async (file: string) => {
  * @returns {Array<customShape>} custom JSON
  */
 const convertShape = (shapes: Array<jsonLDGraph>) => {
-    let customShapes: Array<customShape> = [];
+    let customShapes: Array<customShape> = []
+
     shapes.forEach((shape: jsonLDGraph, index) => {
-        let customShape: customShape = {title:"", elements:[]};
+        let customShape: customShape = {title:"", elements:[]}
 
         if ('@id' in shape) {
             const id: string = shape['@id']
@@ -96,7 +126,8 @@ const convertShape = (shapes: Array<jsonLDGraph>) => {
             customShape.elements = analyzeProperties(shape['sh:property'], index)
         }
         customShapes.push(customShape);
-    });
+    })
+
     return customShapes;
 }
 
@@ -108,9 +139,9 @@ const convertShape = (shapes: Array<jsonLDGraph>) => {
  * @returns {element[]} elements is the returned custom array
  */
 function analyzeProperties(properties: property[], parentIndex: number) {
-    let elements: element[] = [];
+    let elements: element[] = []
+
     properties.forEach((property, propertyIndex) => {
-        console.log('---> property : ', property)
         let element: element = { type: '', name: '', id: '' }
 
         if ('sh:name' in property) {
@@ -153,9 +184,10 @@ function analyzeProperties(properties: property[], parentIndex: number) {
             const type: string = Object.values(dataType)[0]
             element.type = extractNameFromIdArray(type)
         }
-        elements.push(element);
-    });
-    return elements;
+        elements.push(element)
+    })
+
+    return elements
 }
 
 /**
@@ -170,6 +202,7 @@ function extractNameFromIdArray(name: string) {
     } else if (/:/g.test(name)) {
         name = removeContext(name)
     }
+
     return name
 }
 
@@ -187,6 +220,7 @@ function createList(list: string[]) {
         }
         listObject.push(elementObject)
     })
+
     return listObject
 }
 
@@ -201,5 +235,6 @@ function removeContext(name: string) {
             return name.replace(`${key}:`, '')
         }
     }
+
     return name
 }

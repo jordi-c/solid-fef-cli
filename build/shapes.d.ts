@@ -8,12 +8,10 @@ import { customShape } from './types.js';
 export declare const getListOfShapes: () => Promise<string[]>;
 /**
  * getShape() is an async Public fn
- * Reads the .ttl file converts it to JSONLD
- * and ensures @graph Array type
- * and sets @context on global level
- * and finally ...
- * returns the JSONLD converted to a custom JSON using convertShape()
+ * Calls readShape() first with file as a absolute path
+ * and if it fails it tries a relative path
+ * and returns the @graph data converted to a custom JSON using convertShape()
  * @param {string} file is the name of the shape to read
  * @returns {Promise<customShape>} custom JSON shape
  */
-export declare const getShape: (file: string) => Promise<customShape[]>;
+export declare const getShape: (file: string) => Promise<false | customShape[]>;

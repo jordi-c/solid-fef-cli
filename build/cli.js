@@ -37,7 +37,6 @@ yargsInstance
         demandOption: true,
         requiresArg: true,
         description: chalk.dim('select corresponding shape (SHACL .ttl file)'),
-        choices: FORM_SHAPES,
     })
         .option('css', {
         alias: 'c',
@@ -57,7 +56,10 @@ yargsInstance
         }
     }
     customJson = await getShape(argv.shape);
-    if (argv.framework === 'vue') {
+    if (!customJson) {
+        console.error(chalk.red('select an appropriate shape'));
+    }
+    else if (argv.framework === 'vue') {
         await createVueForm(customJson, argv.shape, customClasses);
     }
     else if (argv.framework === 'angular') {

@@ -33,7 +33,6 @@ import {
  * @param {Array<customClass>} customCss 
  */
 export const createVueForm = async (customJson: Array<customShape>, fileName: string, customCss: Array<customClass>) => {
-    console.log('customJson: ', customJson[0])
     const basicComponents = new Set<string>()
     const fileComponent: string = `Form${toPascalCase(fileName)}`
     // Create folders for shape form component

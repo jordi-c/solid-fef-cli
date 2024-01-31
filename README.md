@@ -56,7 +56,9 @@ sfef help
 
 ### List shapes available <a name="usage-list-shapes"></a>
 
-List the actual available shapes.
+List the actual available shapes inside the solid-fef-cli package.
+
+e.g. shapes inside the ```'/Users/myname/node_modules/@solidlab/solid-fef-cli/.assets/shacl/'``` path.
 
 ```bash
 sfef list-shapes
@@ -128,6 +130,18 @@ or
 ```bash
 sfef create -f [vue/angular] -s [fileName] --c
 ```
+
+The fileName could be a absolute path or a relative path in the solid-fef-cli package.
+
+examples of valid **fileName** values:
+
+- ```adresregister-SHACL```
+
+    relative path expected to be in cli package. Check available .ttl file names using ```sfef list-shapes``` command.
+
+- ```/Users/myname/Documents/GIT/myProject/.shapes/my-project-shape.ttl```
+
+    absolute path
 
 #### Vue example
 
@@ -321,7 +335,7 @@ As the optional ```-c``` (```--css```) is also present, the css classes from ```
 ]
 ```
 
-Resulting in following ```html``` and ```ts`` files:
+Resulting in following ```html``` and ```ts``` files:
 
 ```html
 // FormAnotherExample.component.html

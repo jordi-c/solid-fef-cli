@@ -23,19 +23,46 @@ export const getListOfShapes = async () => {
 };
 /**
  * getShape() is an async Public fn
- * Reads the .ttl file converts it to JSONLD
- * and ensures @graph Array type
- * and sets @context on global level
- * and finally ...
- * returns the JSONLD converted to a custom JSON using convertShape()
+ * Calls readShape() first with file as a absolute path
+ * and if it fails it tries a relative path
+ * and returns the @graph data converted to a custom JSON using convertShape()
  * @param {string} file is the name of the shape to read
  * @returns {Promise<customShape>} custom JSON shape
  */
 export const getShape = async (file) => {
     let graph = [];
+    const shapesFolder = resolveOriginPath(SHAPES_FOLDER);
+    const relativeFile = `${shapesFolder}/${file}${SHAPE_EXT}`;
+    const files = [file, relativeFile];
+    for (const filePath of files) {
+        graph = await readShape(filePath);
+        if (graph !== null)
+            break;
+    }
+    if (graph === null) {
+        return false;
+    }
+    return convertShape(graph);
+};
+/**
+ * readShape() is an async Private fn
+ * Reads the .ttl file and converts it to JSONLD
+ * and ensures @graph Array type
+ * and sets @context on global level
+ * and finally returns @graph
+ * @param {string} file expect a .ttl file path
+ * @returns {object[]} graph data from JSONLD
+ *
+ * examples of valid 'file' values:
+ * - 'adresregister-SHACL'
+ *    > relative path expected to be in '/Users/myname/node_modules/@solidlab/solid-fef-cli/.assets/shacl/'
+ * - '/Users/myname/Documents/GIT/myProject/.shapes/my-project-shape.ttl'
+ *    > absolute path
+ */
+const readShape = async (file) => {
+    let graph = [];
     try {
-        const shapesFolder = resolveOriginPath(SHAPES_FOLDER);
-        const ttlShape = await fs.promises.readFile(`${shapesFolder}/${file}${SHAPE_EXT}`, { encoding: 'utf8' });
+        const ttlShape = await fs.promises.readFile(file, { encoding: 'utf8' });
         const jsonLdShape = ttl2json.parse(ttlShape);
         context = jsonLdShape['@context'];
         if ('@graph' in jsonLdShape) {
@@ -47,9 +74,9 @@ export const getShape = async (file) => {
         }
     }
     catch (err) {
-        console.error(err.message);
+        return null;
     }
-    return convertShape(graph);
+    return graph;
 };
 /**
  * convertShape() is a Private fn
@@ -83,7 +110,6 @@ const convertShape = (shapes) => {
 function analyzeProperties(properties, parentIndex) {
     let elements = [];
     properties.forEach((property, propertyIndex) => {
-        console.log('---> property : ', property);
         let element = { type: '', name: '', id: '' };
         if ('sh:name' in property) {
             const name = property['sh:name'];

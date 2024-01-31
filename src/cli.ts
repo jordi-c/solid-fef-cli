@@ -25,6 +25,7 @@ import {
 let FORM_SHAPES: string[] = await getListOfShapes()
 const yargsInstance = yargs(hideBin(process.argv))
 const pkg = JSON.parse(fs.readFileSync(resolveOriginPath(PKG), 'utf8'))
+
 /**
  * Commands:
  * * create --framework [vue|angular] --shape [shapeFileName] --css
@@ -53,7 +54,6 @@ yargsInstance
                     demandOption: true,
                     requiresArg: true,
                     description: chalk.dim('select corresponding shape (SHACL .ttl file)'),
-                    choices: FORM_SHAPES,
                 })
                 .option('css', {
                     alias: 'c',
@@ -76,7 +76,9 @@ yargsInstance
             }
 
             customJson = await getShape(argv.shape)
-            if (argv.framework === 'vue') {
+            if (!customJson) {
+                console.error(chalk.red('select an appropriate shape'))
+            } else if (argv.framework === 'vue') {
                 await createVueForm(customJson, argv.shape, customClasses)
             } else if (argv.framework === 'angular') {
                 await createAngularForm(customJson, argv.shape, customClasses)
