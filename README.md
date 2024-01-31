@@ -12,6 +12,8 @@ The Solid Front End Form CLI is meant to help creating forms on Vue/Angular fram
   - [Create form file and dependencies](#usage-create)
 - [Uninstall](#uninstall)
 
+<br/>
+
 ## Main Features <a name="mainfeatures"></a>
 
 - ```sfef list-shapes``` :     List of available shapes (SHACL .ttl files)
@@ -19,6 +21,8 @@ The Solid Front End Form CLI is meant to help creating forms on Vue/Angular fram
 - ```sfef set-custom-css``` :   Set up custom CSS classes to be used in the form component
 
 - ```sfef create``` :          Creates form component following SHACL shape
+
+<br/>
 
 ## Install <a name="install"></a>
 
@@ -46,6 +50,8 @@ The Solid Front End Form CLI is meant to help creating forms on Vue/Angular fram
     npm i @solidlab/solid-fef-cli -D
     ```
 
+<br/>
+
 ## Usage and examples<a name="usage"></a>
 
 Print out the commands and options in the CLI tool
@@ -54,15 +60,19 @@ Print out the commands and options in the CLI tool
 sfef help
 ```
 
+<br/>
+
 ### List shapes available <a name="usage-list-shapes"></a>
 
 List the actual available shapes inside the solid-fef-cli package.
 
-e.g. shapes inside the ```'/Users/myname/node_modules/@solidlab/solid-fef-cli/.assets/shacl/'``` path.
-
 ```bash
 sfef list-shapes
 ```
+
+Example of path shape location: ```'/Users/myname/node_modules/@solidlab/solid-fef-cli/.assets/shacl/'```
+
+<br/>
 
 ### Set custom CSS styles <a name="usage-set-custom-styles"></a>
 
@@ -105,6 +115,8 @@ Example of custom CSS classes json structure:
 ]
 ```
 
+<br/>
+
 ### Create form file and dependencies <a name="usage-create"></a>
 
 Creates the form component according to frame selected (vue/angular) and the shape (.ttl file).
@@ -131,7 +143,7 @@ or
 sfef create -f [vue/angular] -s [fileName] --c
 ```
 
-The fileName could be a absolute path or a relative path in the solid-fef-cli package.
+The fileName could be an **absolute path** or a **relative path** (in the solid-fef-cli package).
 
 examples of valid **fileName** values:
 
@@ -142,6 +154,8 @@ examples of valid **fileName** values:
 - ```/Users/myname/Documents/GIT/myProject/.shapes/my-project-shape.ttl```
 
     absolute path
+
+<br/>
 
 #### Vue example
 
@@ -310,6 +324,8 @@ when all fields are filled properly:
     src=".assets/images/vue_example_form_styling_ok.png"
     width="400"
     alt="form with styling and filled correctly"/>
+
+<br/>
 
 #### Angular example
 
@@ -505,6 +521,8 @@ when all fields are filled properly:
     src=".assets/images/angular_example_form_styling_ok.png"
     width="400"
     alt="form with styling and filled correctly"/>
+
+<br/>
 
 ## Uninstall <a name="uninstall"></a>
 
